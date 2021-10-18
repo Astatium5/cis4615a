@@ -1,23 +1,23 @@
-// Rule 02. Expressions (EXP)
-// Example EXP00-J
-// Do not ignore values returned by methods
+/*
+ * Compilation: javac R02_XP00_J.java Execution: java R02_XP00_J
+ * 
+ * Rule 02. Expressions (EXP)
+ * Example EXP00-J
+ * Do not ignore values returned by methods
+ * 
+ * Noncompliant code example
+*/
 
-// Noncompliant Code Example (File Deletion)
-public void deleteFile(){
- 
-  File someFile = new File("someFileName.txt");
-  // Do something with someFile
-  someFile.delete();
- 
-}
+import java.io.File;
 
-// Compliant Solution
-public void deleteFile() {
- 
-  File someFile = new File("someFileName.txt");
-  // Do something with someFile
-  if (!someFile.delete()) {
-    // Handle failure to delete the file
+public class R02_XP00_J {
+  public static void main(String[] args) {
+    deleteFile("someFileName.txt");
   }
- 
+
+  public static void deleteFile(String fileName) {
+    File someFile = new File(fileName);
+    // Do something with someFile
+    someFile.delete();
+  }
 }

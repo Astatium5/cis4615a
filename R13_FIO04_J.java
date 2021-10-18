@@ -1,40 +1,38 @@
-// Rule 13. Input Output (FIO)
-// Example FIO04-J
-// Release resources when they are no longer needed
+/*
+ * Compilation: javac R13_FIO04_J.java Execution: java R13_FIO04_J
+ * 
+ * Rule 13. Input Output (FIO)
+ * Example FIO04-J
+ * Release resources when they are no longer needed
+ * 
+ * Noncompliant code example
+*/
 
-// Noncompliant Code Example (File Handle)
-public int processFile(String fileName)
-                       throws IOException, FileNotFoundException {
-  FileInputStream stream = new FileInputStream(fileName);
-  BufferedReader bufRead =
-      new BufferedReader(new InputStreamReader(stream));
-  String line;
-  while ((line = bufRead.readLine()) != null) {
-    sendLine(line);
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class R13_FIO04_J {
+  public static void main(String[] args) {
+    try {
+      processFile("file.txt");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
-  return 1;
-}
 
-// Compliant Solution
-try {
-  final FileInputStream stream = new FileInputStream(fileName);
-  try {
-    final BufferedReader bufRead =
-        new BufferedReader(new InputStreamReader(stream));
- 
+  public static int processFile(String fileName) throws IOException, FileNotFoundException {
+    File myFile = new File(fileName);
+    myFile.createNewFile();
+    FileInputStream stream = new FileInputStream(fileName);
+    BufferedReader bufRead = new BufferedReader(new InputStreamReader(stream));
     String line;
     while ((line = bufRead.readLine()) != null) {
-      sendLine(line);
+      continue;
     }
-  } finally {
-    if (stream != null) {
-      try {
-        stream.close();
-      } catch (IOException e) {
-        // Forward to handler
-      }
-    }
+    return 1;
   }
-} catch (IOException e) {
-  // Forward to handler
 }
