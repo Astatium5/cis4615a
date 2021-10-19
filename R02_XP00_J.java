@@ -5,19 +5,26 @@
  * Example EXP00-J
  * Do not ignore values returned by methods
  * 
- * Noncompliant code example
+ * Compliant code example
 */
 
 import java.io.File;
+import java.io.IOException;
 
 public class R02_XP00_J {
   public static void main(String[] args) {
-    deleteFile("someFileName.txt");
+    try {
+      deleteFile("someFileName.txt");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
-  public static void deleteFile(String fileName) {
+  public static void deleteFile(String fileName) throws IOException {
     File someFile = new File(fileName);
-    // Do something with someFile
-    someFile.delete();
+
+    if (!someFile.delete()) {
+      throw new IOException("File deletion failure");
+    }
   }
 }

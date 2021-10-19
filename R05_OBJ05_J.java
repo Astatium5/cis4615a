@@ -5,7 +5,7 @@
  * Example OBJ05-J
  * Do not return references to private mutable class members
  * 
- * Noncompliant code example
+ * Compliant code example
 */
 
 import java.util.Date;
@@ -18,6 +18,6 @@ class R05_OBJ05_J {
   }
 
   public Date getDate() {
-    return d;
+    return (Date) d.clone();
   }
 }

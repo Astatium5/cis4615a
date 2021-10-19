@@ -5,7 +5,7 @@
  * Example MSC01-J
  * Do not use an empty infinite loop
  * 
- * Noncompliant code example
+ * Compliant code example
 */
 
 // Rule 49. Miscellaneous (MSC)
@@ -13,12 +13,20 @@
 // Do not use an empty infinite loop
 
 public class R49_MSC01_J {
+  public static final int DURATION = 10000;
+
   public static void main(String[] args) {
-    nop();
+    try {
+      nop();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
-  public static int nop() {
+  public static void nop() throws InterruptedException {
     while (true) {
+      // Useful operations
+      Thread.sleep(DURATION);
     }
   }
 }

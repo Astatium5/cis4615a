@@ -5,10 +5,11 @@
  * Example IDS03-J
  * Do not log unsanitized user input
  * 
- * Noncompliant code example
+ * Compliant code example
 */
 
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 public class R00_IDS03_J {
   public void main(String[] args) {
@@ -17,17 +18,21 @@ public class R00_IDS03_J {
     boolean loginSuccessful = false;
 
     if (loginSuccessful) {
-      logger.severe("User login succeeded for: " + username);
+      logger.severe("User login succeeded for: " + sanitizeUser(username));
     } else {
-      logger.severe("User login failed for: " + username);
+      logger.severe("User login failed for: " + sanitizeUser(username));
     }
 
     loginSuccessful = true;
 
     if (loginSuccessful) {
-      logger.severe("User login succeeded for: " + username);
+      logger.severe("User login succeeded for: " + sanitizeUser(username));
     } else {
-      logger.severe("User login failed for: " + username);
+      logger.severe("User login failed for: " + sanitizeUser(username));
     }
+  }
+
+  public String sanitizeUser(String username) {
+    return Pattern.matches("[A-Za-z0-9_]+", username) ? username : "unauthorized user";
   }
 }

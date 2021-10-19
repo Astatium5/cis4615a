@@ -5,7 +5,7 @@
  * Example SER00-J
  * Enable serialization compatibility during class evolution
  * 
- * Noncompliant code example
+ * Compliant code example
 */
 
 import java.io.Serializable;
@@ -19,6 +19,8 @@ public class R14_SER00_J {
 }
 
 class GameWeapon implements Serializable {
+  private static final long serialVersionUID = 24L;
+
   int numOfWeapons = 10;
 
   public String toString() {

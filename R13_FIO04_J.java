@@ -5,7 +5,7 @@
  * Example FIO04-J
  * Release resources when they are no longer needed
  * 
- * Noncompliant code example
+ * Compliant code example
 */
 
 import java.io.BufferedReader;
@@ -24,15 +24,29 @@ public class R13_FIO04_J {
     }
   }
 
-  public static int processFile(String fileName) throws IOException, FileNotFoundException {
+  public static void processFile(String fileName) throws IOException, FileNotFoundException {
     File myFile = new File(fileName);
     myFile.createNewFile();
-    FileInputStream stream = new FileInputStream(fileName);
-    BufferedReader bufRead = new BufferedReader(new InputStreamReader(stream));
-    String line;
-    while ((line = bufRead.readLine()) != null) {
-      continue;
+    try {
+      final FileInputStream stream = new FileInputStream(fileName);
+      try {
+        final BufferedReader bufRead = new BufferedReader(new InputStreamReader(stream));
+
+        String line;
+        while ((line = bufRead.readLine()) != null) {
+          continue;
+        }
+      } finally {
+        if (stream != null) {
+          try {
+            stream.close();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    return 1;
   }
 }

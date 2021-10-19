@@ -5,7 +5,7 @@
  * Example ERR07-J
  * Do not throw RuntimeException, Exception, or Throwable
  * 
- * Noncompliant code example
+ * Compliant code example
 */
 
 public class R07_ERR07_J {
@@ -15,7 +15,7 @@ public class R07_ERR07_J {
 
   static boolean isCapitalized(String s) {
     if (s == null) {
-      throw new RuntimeException("Null String");
+      throw new NullPointerException();
     }
     if (s.equals("")) {
       return true;

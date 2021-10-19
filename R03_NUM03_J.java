@@ -5,7 +5,7 @@
  * Example NUM03-J
  * Use integer types that can fully represent the possible range of unsigned data
  * 
- * Noncompliant code example
+ * Compliant code example
 */
 
 import java.io.DataInputStream;
@@ -16,14 +16,14 @@ public class R03_NUM03_J {
     DataInputStream is = new DataInputStream(System.in);
 
     try {
-      int i = getInteger(is);
+      long i = getInteger(is);
       is.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  public static int getInteger(DataInputStream is) throws IOException {
-    return is.readInt();
+  public static long getInteger(DataInputStream is) throws IOException {
+    return is.readInt() & 0xFFFFFFFFL; // Mask with 32 one-bits;
   }
 }
