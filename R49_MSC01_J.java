@@ -8,10 +8,6 @@
  * Compliant code example
 */
 
-// Rule 49. Miscellaneous (MSC)
-// Example MSC01-J
-// Do not use an empty infinite loop
-
 public class R49_MSC01_J {
   public static final int DURATION = 10000;
 
